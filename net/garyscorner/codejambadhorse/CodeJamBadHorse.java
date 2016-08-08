@@ -4,7 +4,7 @@
 //Desc:		Designed to solve google Code Jam Bad Horse Practice from Round A APAC test 2016
 //Problem:	https://code.google.com/codejam/contest/6234486/dashboard
 //Results:	A-small-practice-1.in:  23ms        A-small-practice-1.in:  41ms
-
+//License:      GNU GPLv3
 
 
 package net.garyscorner.codejambadhorse;
