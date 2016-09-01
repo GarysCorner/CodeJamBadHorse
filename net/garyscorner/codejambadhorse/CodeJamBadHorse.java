@@ -57,7 +57,7 @@ public class CodeJamBadHorse {
         System.err.printf("%1$d cases solved in %2$dms\n", totalcases, System.currentTimeMillis() - startsolve);
         
         long startoutput = System.currentTimeMillis(); //Start time for output
-        System.err.printf("Outputing %1$d cases...\n", totalcases );
+        System.err.printf("Outputting %1$d cases...\n", totalcases );
         for(int i=0; i<totalcases; i++) {
             if(solveable[i]) {  //Print yes if solvable no if not
                 outfile.printf("Case #%1$d: Yes\r\n", i+1);
@@ -190,7 +190,7 @@ public class CodeJamBadHorse {
         
 		
         if(  2 < args.length || args.length == 0 ) {
-                System.err.println("Program requires 1 or 2 arguments.  First arg is infile name, 2nd arg is outfile name StdOut by default.");
+                System.err.println("Program requires 1 or 2 arguments.  First argument is infile name, 2nd argument is outfile name StdOut by default.");
                 System.exit(1);  //Exit the system if arguments not correct
         }
 
