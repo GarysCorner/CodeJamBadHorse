@@ -20,35 +20,35 @@ import java.util.Map.Entry;
 
 public class TestCase {
 
-    //variables
+    //Variables
     private int casenum;
     private int totalbeefs;
     private Map<String, Member> members;
     private String[][] beefs; //all the beefs
-    int beefspos = 0;  //current position in beefs
+    int beefspos = 0;  //Current position in beefs
     
-    //function
+    //Function
     public TestCase(int casenum, int totalbeefs) {
         this.casenum = casenum;
         this.totalbeefs = totalbeefs;
         
-        //initalize members hashmap
+        //Initialize members hashmap
         this.members = new HashMap<String, Member>();
         this.beefs = new String[totalbeefs][2];
     }
     
-    //adds a beef
+    //Adds a beef
     public void addbeef(String[] beef) {
         
-        //load the beefs into local beef String[][]
+        //Load the beefs into local beef String[][]
         this.beefs[beefspos][0] = beef[0];
         this.beefs[beefspos][1] = beef[1];
         this.beefspos++;  //increment beefs position after the loop
         
-        //do he same for both beefers
+        //Do he same for both beefers
         for(int i=0; i<2; i++) {
             
-            //add member if not already added
+            //Add member if not already added
             if(!members.containsKey(beef[i])) {
                 members.put(beef[i], new Member(beef[i]));
             }
@@ -65,7 +65,7 @@ public class TestCase {
         
     }
     
-    //returns true if there is a soltion otherwise false
+    //Returns true if there is a solution otherwise false
     public boolean solutionexists() {
        
         ArrayList<String> Red = new ArrayList<String>();
@@ -78,7 +78,7 @@ public class TestCase {
                 } 
         }
         
-        return true;  //return true if the solution hasnt already failed
+        return true;  //Return true if the solution hasn't already failed
         
     }
     

@@ -19,21 +19,20 @@ import java.io.IOException;
 public class CodeJamBadHorse {
 
     
-    //variables
+    //Variables
     public long starttime;
     
-    //file streams
+    //File streams
     private BufferedReader infile;
     private PrintStream outfile;
     
-    //filename variables
-    private String infileopt, outfileopt;  
+    private String infileopt, outfileopt; //Filename variables  
     
-    private long linenum = 0; //keeps track of the current line number of the infile for error printing purposes    
+    private long linenum = 0; //Keeps track of the current line number of the infile for error printing purposes    
     
-    private int totalcases;  //total number of cases
+    private int totalcases;  //Total number of cases
     
-    private TestCase[] testcases;  //holds all the test cases
+    private TestCase[] testcases;  //Holds all the test cases
     
        
     
@@ -41,26 +40,26 @@ public class CodeJamBadHorse {
         Functions
     */
     
-    //program starts here
+    //Program starts here
     public void run(String[] args) {
-        this.loadoptions(args);  //load arguments
+        this.loadoptions(args);  //Load arguments
         
         this.openFiles();
         
         this.loadData();
         
-        boolean[] solveable = new boolean[totalcases];  //store all the answers here
-        long startsolve = System.currentTimeMillis();  //start the solution time for metrics
-        //solve all cases
+        boolean[] solveable = new boolean[totalcases];  //Store all the answers here
+        long startsolve = System.currentTimeMillis();  //Start the solution time for metrics
+        //Solve all cases
         for(int i=0; i<totalcases; i++) {
             solveable[i] = testcases[i].solutionexists();
         }
         System.err.printf("%1$d cases solved in %2$dms\n", totalcases, System.currentTimeMillis() - startsolve);
         
-        long startoutput = System.currentTimeMillis(); //start time for output
+        long startoutput = System.currentTimeMillis(); //Start time for output
         System.err.printf("Outputing %1$d cases...\n", totalcases );
         for(int i=0; i<totalcases; i++) {
-            if(solveable[i]) {  //print yes if solveable no if not
+            if(solveable[i]) {  //Print yes if solvable no if not
                 outfile.printf("Case #%1$d: Yes\r\n", i+1);
             } else {
                 outfile.printf("Case #%1$d: No\r\n", i+1);
@@ -70,19 +69,19 @@ public class CodeJamBadHorse {
         System.err.printf("%1$d cases output to \"%2$s\" in %3$dms\n", totalcases, outfileopt, System.currentTimeMillis() - startoutput);
         
         
-        this.closeFiles();  //close files
+        this.closeFiles();  //Close files
     }
     
-    //load data from file into data structure
+    //Load data from file into data structure
     private void loadData() {
         
-        long loaddatastarttime = System.currentTimeMillis();  //the time we started loading data
+        long loaddatastarttime = System.currentTimeMillis();  //The time data loading was started.
         
         System.err.printf("\nLoading data from \"%1$s\"...\n", this.infileopt);
         
         String line = this.infileReadLine();
         
-        //get case numbers
+        //Get case numbers
         try{
             totalcases = Integer.parseInt(line);
         } catch(NumberFormatException ex) {
@@ -90,32 +89,32 @@ public class CodeJamBadHorse {
             System.exit(4);
         }
         
-        testcases = new TestCase[totalcases];  //initialize testcase array
+        testcases = new TestCase[totalcases];  //Initialize testcase array
         
-        //load all test cases
+        //Load all test cases
         System.err.printf("Loading %1$d test cases...\n", totalcases);
         for( int i=0; i<totalcases; i++ ) {
             
             line = this.infileReadLine();
             
-            int totalbeefs = 0;  //total members
+            int totalbeefs = 0;  //Total members
             
             try {
                 totalbeefs = Integer.parseInt(line);
-            } catch(NumberFormatException ex) {  //catch bad totalbeefs number and panic
+            } catch(NumberFormatException ex) {  //Catch bad totalbeefs number and panic
                 System.err.printf("Error parsing number of beefs from line %1$d:  %2$s\n", this.linenum, ex);
                 System.exit(5);
             }
             
-            testcases[i] = new TestCase(i+1, totalbeefs);  //initilze the test case
+            testcases[i] = new TestCase(i+1, totalbeefs);  //Initialize the test case
             
-            //load all the beefs from testcase
+            //Load all the beefs from testcase
             for(int c=0; c<totalbeefs; c++) {
                 line = this.infileReadLine();
                 
                 String[] beef = line.split(" ");  //get the two beefers
                 
-                if(beef.length != 2) {  //panic if there are more/less than two beefers
+                if(beef.length != 2) {  //Panic if there are more/less than two beefers
                     System.err.printf("Error on line %1$d, there are %2$d beefers instead of 2\n", this.linenum, beef.length);
                     System.exit(6);
                 }
@@ -133,7 +132,7 @@ public class CodeJamBadHorse {
         
     }
     
-    //open the files
+    //Open the files
     public void openFiles() {
         try {
             infile = new BufferedReader(new FileReader(infileopt));
@@ -160,7 +159,7 @@ public class CodeJamBadHorse {
                 
     }
     
-    //reads a line panic if exception
+    //Reads a line panic if exception
     private String infileReadLine() {  
         
         linenum++;
@@ -172,32 +171,32 @@ public class CodeJamBadHorse {
                 System.exit(3);
         }
 
-        return null;  //get rid of netbeans error   
+        return null;  //Get rid of netbeans error   
     }
     
-    //close files
+    //Close files
     private void closeFiles() {
         try {
             infile.close();
         } catch (Exception ex) {
-            //do nothing the program is already finished
+            //Do nothing the program is already finished
         }
         
         outfile.close();
     }
     
-    //loads the command line options
+    //Loads the command line options
     private void loadoptions(String[] args) {
         
 		
         if(  2 < args.length || args.length == 0 ) {
                 System.err.println("Program requires 1 or 2 arguments.  First arg is infile name, 2nd arg is outfile name StdOut by default.");
-                System.exit(1);  //exit the system if arguments not correct
+                System.exit(1);  //Exit the system if arguments not correct
         }
 
         infileopt = args[0];
 
-        if( args.length == 2 ) {  //set the outfile if exists
+        if( args.length == 2 ) {  //Set the outfile if exists
                 outfileopt = args[1];
         }
 
